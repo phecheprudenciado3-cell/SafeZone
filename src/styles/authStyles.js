@@ -1,74 +1,143 @@
 
+
 import { StyleSheet } from 'react-native';
 
 export const authStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F3F7FA',
+    backgroundColor: '#F8F4EC',
   },
 
-  authContainer: {
+  scrollContent: {
     flexGrow: 1,
     justifyContent: 'center',
-    padding: 25,
+    paddingHorizontal: 24,
+    paddingVertical: 35,
+  },
+
+  logoArea: {
+    alignItems: 'center',
+    marginBottom: 32,
+  },
+
+  logoCircle: {
+    width: 76,
+    height: 76,
+    borderRadius: 25,
+    backgroundColor: '#E9E5D9',
+    borderWidth: 2,
+    borderColor: '#C8A45D',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 12,
+  },
+
+  logoIcon: {
+    fontSize: 48,
+    color: '#183D2C',
+    fontWeight: 'bold',
   },
 
   logo: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    color: '#123B56',
-    textAlign: 'center',
+    fontSize: 39,
+    fontWeight: '800',
+    color: '#183D2C',
+    letterSpacing: -1.5,
   },
 
-  subtitle: {
-    color: '#64748B',
-    textAlign: 'center',
-    marginTop: 8,
-    marginBottom: 30,
+  logoAccent: {
+    color: '#C99B3B',
   },
 
-  form: {
-    backgroundColor: '#FFFFFF',
-    padding: 22,
-    borderRadius: 15,
+  tagline: {
+    fontSize: 13,
+    color: '#77756D',
+    marginTop: 7,
   },
 
-  formTitle: {
-    fontSize: 23,
-    fontWeight: 'bold',
-    color: '#123B56',
-    marginBottom: 20,
+  formCard: {
+    backgroundColor: '#FFFCF6',
+    padding: 23,
+    borderRadius: 22,
+    borderWidth: 1,
+    borderColor: '#EAE2D4',
+    elevation: 3,
+  },
+
+  heading: {
+    fontSize: 25,
+    fontWeight: '800',
+    color: '#183D2C',
+    marginBottom: 7,
+  },
+
+  description: {
+    fontSize: 13,
+    color: '#858176',
+    marginBottom: 25,
+  },
+
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 53,
+    borderWidth: 1,
+    borderColor: '#E5DDCF',
+    borderRadius: 13,
+    backgroundColor: '#FBF8F1',
+    paddingHorizontal: 14,
+    marginBottom: 14,
+  },
+
+  inputIcon: {
+    fontSize: 19,
+    color: '#183D2C',
+    marginRight: 12,
   },
 
   input: {
-    borderWidth: 1,
-    borderColor: '#D6DEE5',
-    borderRadius: 9,
-    padding: 14,
-    marginBottom: 15,
-    backgroundColor: '#FFFFFF',
+    flex: 1,
+    fontSize: 14,
+    color: '#34352F',
   },
 
   primaryButton: {
-    backgroundColor: '#123B56',
-    padding: 15,
-    borderRadius: 9,
+    height: 53,
+    backgroundColor: '#183D2C',
+    borderRadius: 13,
     alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 8,
   },
 
-  buttonText: {
+  primaryButtonText: {
     color: '#FFFFFF',
-    fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 15,
+    fontWeight: '700',
   },
 
-  switchButton: {
-    marginTop: 20,
-    alignItems: 'center',
+  switchArea: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 23,
+    flexWrap: 'wrap',
   },
 
-  switchText: {
-    color: '#2563EB',
-    fontWeight: '600',
+  switchLabel: {
+    color: '#77756D',
+    fontSize: 13,
+  },
+
+  switchLink: {
+    color: '#183D2C',
+    fontSize: 13,
+    fontWeight: '800',
+  },
+
+  footer: {
+    textAlign: 'center',
+    color: '#969083',
+    fontSize: 12,
+    marginTop: 25,
   },
 });

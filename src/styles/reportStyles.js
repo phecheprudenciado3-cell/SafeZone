@@ -1,34 +1,40 @@
 
+
 import { StyleSheet } from 'react-native';
 
 export const reportStyles = StyleSheet.create({
   reportCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#FFFCF6',
     padding: 18,
-    borderRadius: 14,
-    marginBottom: 20,
+    borderRadius: 17,
+    borderWidth: 1,
+    borderColor: '#EAE2D4',
+    marginBottom: 18,
   },
 
   cardTitle: {
-    fontSize: 19,
-    fontWeight: 'bold',
-    color: '#123B56',
+    fontSize: 18,
+    fontWeight: '800',
+    color: '#183D2C',
     marginBottom: 18,
   },
 
   inputLabel: {
-    fontWeight: '600',
-    color: '#334155',
-    marginBottom: 7,
+    fontWeight: '700',
+    color: '#55574D',
+    fontSize: 12,
+    marginBottom: 8,
   },
 
   reportInput: {
     borderWidth: 1,
-    borderColor: '#D6DEE5',
-    borderRadius: 9,
-    padding: 12,
-    marginBottom: 15,
-    backgroundColor: '#FFFFFF',
+    borderColor: '#E5DDCF',
+    borderRadius: 11,
+    padding: 13,
+    marginBottom: 16,
+    backgroundColor: '#FBF8F1',
+    color: '#34352F',
+    fontSize: 13,
   },
 
   descriptionInput: {
@@ -44,7 +50,8 @@ export const reportStyles = StyleSheet.create({
 
   typeButton: {
     borderWidth: 1,
-    borderColor: '#CBD5E1',
+    borderColor: '#DCD4C6',
+    backgroundColor: '#FBF8F1',
     paddingVertical: 9,
     paddingHorizontal: 13,
     borderRadius: 20,
@@ -53,12 +60,12 @@ export const reportStyles = StyleSheet.create({
   },
 
   selectedTypeButton: {
-    backgroundColor: '#123B56',
-    borderColor: '#123B56',
+    backgroundColor: '#183D2C',
+    borderColor: '#183D2C',
   },
 
   typeButtonText: {
-    color: '#334155',
+    color: '#625F56',
     fontSize: 12,
   },
 
@@ -68,15 +75,15 @@ export const reportStyles = StyleSheet.create({
   },
 
   submitReportButton: {
-    backgroundColor: '#123B56',
+    backgroundColor: '#183D2C',
     padding: 15,
-    borderRadius: 9,
+    borderRadius: 12,
     alignItems: 'center',
   },
 
   submitReportText: {
     color: '#FFFFFF',
-    fontWeight: 'bold',
-    fontSize: 15,
+    fontWeight: '700',
+    fontSize: 14,
   },
 });
