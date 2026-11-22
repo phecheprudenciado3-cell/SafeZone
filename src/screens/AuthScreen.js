@@ -1,31 +1,32 @@
 
 import React, { useState } from 'react';
 import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  ActivityIndicator,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  Alert,
-  StatusBar,
+  View, Text, TextInput, TouchableOpacity,
+  ScrollView, KeyboardAvoidingView, Platform,
+  ActivityIndicator, Alert, StatusBar
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
-import { registerUser, loginUser } from '../services/authService';
-import { authStyles as styles } from '../styles/authStyles';
+import { loginUser, registerUser } from '../services/authService';
+import { authStyles as s } from '../styles/authStyles';
 
 export default function AuthScreen() {
   const [isRegister, setIsRegister] = useState(false);
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async () => {
     if (!email.trim() || !password || (isRegister && !fullName.trim())) {
-      Alert.alert('Incomplete Form', 'Please complete all required fields.');
+      Alert.alert('Incomplete form', 'Please complete all required fields.');
+      return;
+    }
+
+    if (isRegister && password !== confirmPassword) {
+      Alert.alert('Password mismatch', 'Your passwords do not match.');
       return;
     }
 
@@ -38,141 +39,164 @@ export default function AuthScreen() {
 
       if (result.error) {
         Alert.alert(
-          isRegister ? 'Registration Failed' : 'Login Failed',
+          isRegister ? 'Registration failed' : 'Login failed',
           result.error.message
         );
         return;
       }
 
-      if (isRegister) {
-        if (result.data?.session) {
-          Alert.alert('Welcome to SafeZone', 'Your account has been created.');
-        } else {
-          Alert.alert(
-            'Verify Your Email',
-            'Your account was created. Please check your email before logging in.'
-          );
-          setIsRegister(false);
-        }
+      if (isRegister && !result.data?.session) {
+        Alert.alert(
+          'Verify your email',
+          'Your account was created. Please check your email before logging in.'
+        );
+        setIsRegister(false);
       }
 
       setPassword('');
+      setConfirmPassword('');
     } catch (error) {
-      Alert.alert('Error', error.message || 'Something went wrong.');
+      Alert.alert('Error', error.message || 'Please try again.');
     } finally {
       setSubmitting(false);
     }
   };
 
+  const renderInput = (label, icon, value, onChangeText, options = {}) => (
+    <View style={s.field}>
+      <Text style={s.label}>{label}</Text>
+      <View style={s.inputWrap}>
+        <Ionicons name={icon} size={19} color="#718096" />
+        <TextInput
+          style={s.input}
+          value={value}
+          onChangeText={onChangeText}
+          placeholder={options.placeholder}
+          placeholderTextColor="#9AA6B5"
+          secureTextEntry={options.secure && !showPassword}
+          keyboardType={options.keyboardType || 'default'}
+          autoCapitalize={options.autoCapitalize || 'none'}
+          autoCorrect={false}
+        />
+        {options.secure && (
+          <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+            <Ionicons
+              name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+              size={20}
+              color="#718096"
+            />
+          </TouchableOpacity>
+        )}
+      </View>
+    </View>
+  );
+
   return (
     <KeyboardAvoidingView
-      style={styles.container}
+      style={s.container}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      <StatusBar barStyle="dark-content" backgroundColor="#F8F4EC" />
+      <StatusBar barStyle="dark-content" backgroundColor="#F5F8FD" />
 
       <ScrollView
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={s.scrollContent}
         keyboardShouldPersistTaps="handled"
       >
-        <View style={styles.logoArea}>
-          <View style={styles.logoCircle}>
-            <Text style={styles.logoIcon}>⌂</Text>
+        <View style={s.brand}>
+          <View style={s.logo}>
+            <Ionicons name="shield-checkmark" size={36} color="#FFFFFF" />
           </View>
-
-          <Text style={styles.logo}>
-            Safe<Text style={styles.logoAccent}>Zone</Text>
+          <Text style={s.brandName}>
+            Safe<Text style={s.brandAccent}>Zone</Text>
           </Text>
-
-          <Text style={styles.tagline}>
-            Safer Community. Stronger Tomorrow.
-          </Text>
+          <Text style={s.brandSubtitle}>COMMUNITY SAFETY PLATFORM</Text>
         </View>
 
-        <View style={styles.formCard}>
-          <Text style={styles.heading}>
+        <View style={s.card}>
+          <Text style={s.heading}>
             {isRegister ? 'Create Account' : 'Welcome Back!'}
           </Text>
-
-          <Text style={styles.description}>
+          <Text style={s.description}>
             {isRegister
               ? 'Join our community for a safer place.'
-              : 'Sign in to continue to your community.'}
+              : 'Sign in to stay connected and informed.'}
           </Text>
 
-          {isRegister && (
-            <View style={styles.inputContainer}>
-              <Text style={styles.inputIcon}>♙</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="Full Name"
-                placeholderTextColor="#9A968D"
-                value={fullName}
-                onChangeText={setFullName}
-                autoCapitalize="words"
-              />
-            </View>
+          {isRegister && renderInput(
+            'Full Name',
+            'person-outline',
+            fullName,
+            setFullName,
+            { placeholder: 'Enter your full name', autoCapitalize: 'words' }
           )}
 
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputIcon}>✉</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Email Address"
-              placeholderTextColor="#9A968D"
-              value={email}
-              onChangeText={setEmail}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              autoCorrect={false}
-            />
-          </View>
+          {renderInput(
+            'Email Address',
+            'mail-outline',
+            email,
+            setEmail,
+            { placeholder: 'name@example.com', keyboardType: 'email-address' }
+          )}
 
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputIcon}>♙</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Password"
-              placeholderTextColor="#9A968D"
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-              autoCapitalize="none"
-            />
-          </View>
+          {renderInput(
+            'Password',
+            'lock-closed-outline',
+            password,
+            setPassword,
+            { placeholder: 'Enter your password', secure: true }
+          )}
+
+          {isRegister && renderInput(
+            'Confirm Password',
+            'lock-closed-outline',
+            confirmPassword,
+            setConfirmPassword,
+            { placeholder: 'Confirm your password', secure: true }
+          )}
 
           <TouchableOpacity
-            style={styles.primaryButton}
+            style={s.primaryButton}
             onPress={handleSubmit}
             disabled={submitting}
           >
             {submitting ? (
               <ActivityIndicator color="#FFFFFF" />
             ) : (
-              <Text style={styles.primaryButtonText}>
-                {isRegister ? 'Create Account' : 'Log In'}
-              </Text>
+              <>
+                <Text style={s.primaryButtonText}>
+                  {isRegister ? 'Create Account' : 'Sign In'}
+                </Text>
+                <Ionicons name="arrow-forward" size={19} color="#FFFFFF" />
+              </>
             )}
           </TouchableOpacity>
 
-          <View style={styles.switchArea}>
-            <Text style={styles.switchLabel}>
+          <View style={s.switchRow}>
+            <Text style={s.switchText}>
               {isRegister
                 ? 'Already have an account? '
                 : "Don't have an account? "}
             </Text>
-
-            <TouchableOpacity onPress={() => setIsRegister(!isRegister)}>
-              <Text style={styles.switchLink}>
-                {isRegister ? 'Log In' : 'Register'}
+            <TouchableOpacity
+              onPress={() => {
+                setIsRegister(!isRegister);
+                setPassword('');
+                setConfirmPassword('');
+              }}
+            >
+              <Text style={s.switchLink}>
+                {isRegister ? 'Sign In' : 'Register'}
               </Text>
             </TouchableOpacity>
           </View>
         </View>
 
-        <Text style={styles.footer}>
-          Together, we build a safer community.
-        </Text>
+        <View style={s.footer}>
+          <Ionicons name="shield-checkmark-outline" size={16} color="#718096" />
+          <Text style={s.footerText}>
+            Free community safety for everyone
+          </Text>
+        </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );
