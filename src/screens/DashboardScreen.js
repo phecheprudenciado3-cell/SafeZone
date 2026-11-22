@@ -1,4 +1,5 @@
 
+
 import React, { useEffect, useState } from 'react';
 
 import {
@@ -6,128 +7,174 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
   Alert,
+  StatusBar,
 } from 'react-native';
 
-import { getActiveAlerts } from '../services/alertService';
 import { logoutUser } from '../services/authService';
+import { getActiveAlerts } from '../services/alertService';
 
 import EmergencyAlertList from '../components/EmergencyAlertList';
 import EmergencyReportForm from '../components/EmergencyReportForm';
 
-import { dashboardStyles } from '../styles/dashboardStyles';
+import { dashboardStyles as styles } from '../styles/dashboardStyles';
 
 export default function DashboardScreen({ session }) {
   const [alerts, setAlerts] = useState([]);
   const [alertsLoading, setAlertsLoading] = useState(true);
 
+  const user = session?.user;
+
   useEffect(() => {
-    const fetchAlerts = async () => {
-      setAlertsLoading(true);
-
-      try {
-        const { data, error } = await getActiveAlerts();
-
-        if (error) {
-          console.log('Alert error:', error.message);
-          Alert.alert('Alert Error', error.message);
-        } else {
-          setAlerts(data || []);
-        }
-      } catch (error) {
-        console.log('Unexpected alert error:', error);
-      } finally {
-        setAlertsLoading(false);
-      }
-    };
-
-    fetchAlerts();
+    loadAlerts();
   }, []);
 
-  const handleLogout = async () => {
-    const { error } = await logoutUser();
+  const loadAlerts = async () => {
+    setAlertsLoading(true);
 
-    if (error) {
-      Alert.alert('Logout Failed', error.message);
+    try {
+      const { data, error } = await getActiveAlerts();
+
+      if (error) {
+        console.log('Alert loading error:', error.message);
+        return;
+      }
+
+      setAlerts(data || []);
+    } catch (error) {
+      console.log('Alert error:', error.message);
+    } finally {
+      setAlertsLoading(false);
     }
   };
 
+  const handleLogout = async () => {
+    Alert.alert(
+      'Log Out',
+      'Are you sure you want to log out?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Log Out',
+          style: 'destructive',
+          onPress: async () => {
+            const { error } = await logoutUser();
+
+            if (error) {
+              Alert.alert('Logout Failed', error.message);
+            }
+          },
+        },
+      ]
+    );
+  };
+
   return (
-    <View style={dashboardStyles.container}>
+    <View style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#183D2C" />
+
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={dashboardStyles.header}>
-          <Text style={dashboardStyles.headerTitle}>
-            SafeZone
+        <View style={styles.header}>
+          <View style={styles.headerTop}>
+            <View>
+              <Text style={styles.brand}>SafeZone</Text>
+              <Text style={styles.headerSubtitle}>
+                Your Community Safety Companion
+              </Text>
+            </View>
+
+            <View style={styles.profileCircle}>
+              <Text style={styles.profileInitial}>
+                {(user?.user_metadata?.full_name || user?.email || 'U')
+                  .charAt(0)
+                  .toUpperCase()}
+              </Text>
+            </View>
+          </View>
+
+          <Text style={styles.greeting}>
+            Hello, {user?.user_metadata?.full_name?.split(' ')[0] || 'there'}!
           </Text>
 
-          <Text style={{ color: '#CBD5E1', marginTop: 5 }}>
-            Your Community Safety Companion
+          <Text style={styles.welcomeText}>
+            Stay safe, stay informed.
           </Text>
         </View>
 
-        <View style={dashboardStyles.dashboard}>
-          <Text style={dashboardStyles.welcome}>
-            Welcome to SafeZone!
-          </Text>
+        <View style={styles.content}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Emergency Alerts</Text>
 
-          <Text style={dashboardStyles.email}>
-            {session?.user?.email}
-          </Text>
-
-          <Text style={dashboardStyles.sectionTitle}>
-            Emergency Alerts
-          </Text>
+            <TouchableOpacity onPress={loadAlerts}>
+              <Text style={styles.refreshText}>Refresh</Text>
+            </TouchableOpacity>
+          </View>
 
           <EmergencyAlertList
             alerts={alerts}
             loading={alertsLoading}
           />
 
-          <Text style={dashboardStyles.sectionTitle}>
-            Report an Emergency
-          </Text>
+          <Text style={styles.sectionTitle}>Safety Services</Text>
 
-          <EmergencyReportForm userId={session.user.id} />
+          <View style={styles.featureGrid}>
+            <View style={styles.featureCard}>
+              <Text style={styles.featureIcon}>⚠️</Text>
+              <Text style={styles.featureTitle}>Emergency Alerts</Text>
+              <Text style={styles.featureDescription}>
+                Stay updated with announcements.
+              </Text>
+            </View>
 
-          <Text style={dashboardStyles.sectionTitle}>
-            Community Features
-          </Text>
+            <View style={styles.featureCard}>
+              <Text style={styles.featureIcon}>📋</Text>
+              <Text style={styles.featureTitle}>Report Incident</Text>
+              <Text style={styles.featureDescription}>
+                Send reports to your barangay.
+              </Text>
+            </View>
 
-          <View style={dashboardStyles.feature}>
-            <Text style={dashboardStyles.featureTitle}>
-              Emergency Reports
-            </Text>
-            <Text style={dashboardStyles.featureDescription}>
-              Submit important emergency information to help your community.
-            </Text>
+            <View style={styles.featureCard}>
+              <Text style={styles.featureIcon}>🏠</Text>
+              <Text style={styles.featureTitle}>Evacuation Centers</Text>
+              <Text style={styles.featureDescription}>
+                Find designated safe locations.
+              </Text>
+            </View>
+
+            <View style={styles.featureCard}>
+              <Text style={styles.featureIcon}>📖</Text>
+              <Text style={styles.featureTitle}>Safety Guides</Text>
+              <Text style={styles.featureDescription}>
+                Learn how to prepare for emergencies.
+              </Text>
+            </View>
           </View>
 
-          <View style={dashboardStyles.feature}>
-            <Text style={dashboardStyles.featureTitle}>
-              Evacuation Centers
-            </Text>
-            <Text style={dashboardStyles.featureDescription}>
-              Find available evacuation centers in your community.
-            </Text>
-          </View>
+          <Text style={styles.sectionTitle}>Submit an Emergency Report</Text>
 
-          <View style={dashboardStyles.feature}>
-            <Text style={dashboardStyles.featureTitle}>
-              Safety Guides
-            </Text>
-            <Text style={dashboardStyles.featureDescription}>
-              Learn what to do before, during, and after disasters.
+          <EmergencyReportForm userId={user?.id} />
+
+          <View style={styles.infoCard}>
+            <Text style={styles.infoTitle}>Your Safety Matters</Text>
+            <Text style={styles.infoText}>
+              SafeZone helps your community stay informed and prepared.
+              For immediate danger, contact the appropriate emergency
+              services directly.
             </Text>
           </View>
 
           <TouchableOpacity
-            style={dashboardStyles.logoutButton}
+            style={styles.logoutButton}
             onPress={handleLogout}
           >
-            <Text style={dashboardStyles.logoutText}>
-              Logout
-            </Text>
+            <Text style={styles.logoutText}>Log Out</Text>
           </TouchableOpacity>
+
+          <Text style={styles.footer}>
+            SafeZone • Free Community Safety Platform
+          </Text>
         </View>
       </ScrollView>
     </View>
