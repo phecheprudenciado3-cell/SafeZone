@@ -1,56 +1,86 @@
 
-
 import { StyleSheet } from 'react-native';
 
 export const alertStyles = StyleSheet.create({
-  alertItem: {
-    backgroundColor: '#FFF9EF',
-    borderLeftWidth: 4,
-    borderLeftColor: '#D49A3A',
-    padding: 16,
+  card: {
+    flexDirection: 'row',
+    backgroundColor: '#FFFFFF',
     borderRadius: 15,
+    borderWidth: 1,
+    borderColor: '#E5EAF2',
+    padding: 14,
     marginBottom: 12,
-    borderWidth: 1,
-    borderColor: '#EAE2D4',
+    gap: 12,
   },
-
-  alertTitle: {
-    fontSize: 16,
+  iconBox: {
+    width: 43,
+    height: 43,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  details: {
+    flex: 1,
+  },
+  titleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    gap: 6,
+  },
+  title: {
+    flex: 1,
+    color: '#172B4D',
+    fontSize: 14,
     fontWeight: '800',
-    color: '#183D2C',
-    marginBottom: 7,
   },
-
-  alertSeverity: {
-    fontSize: 11,
+  badge: {
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 20,
+  },
+  badgeText: {
+    fontSize: 9,
     fontWeight: '800',
-    color: '#B65C36',
-    marginBottom: 8,
+    textTransform: 'uppercase',
   },
-
-  cardText: {
-    color: '#625F56',
-    fontSize: 13,
-    lineHeight: 20,
+  description: {
+    color: '#596579',
+    fontSize: 12,
+    lineHeight: 18,
+    marginTop: 7,
   },
-
+  locationRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    marginTop: 8,
+  },
   location: {
-    color: '#898477',
-    fontSize: 11,
-    marginTop: 9,
+    color: '#8995A5',
+    fontSize: 10,
   },
-
-  emptyContainer: {
-    padding: 20,
-    backgroundColor: '#FFFCF6',
-    borderRadius: 14,
+  emptyCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 15,
     borderWidth: 1,
-    borderColor: '#EAE2D4',
+    borderColor: '#E5EAF2',
+    alignItems: 'center',
+    padding: 25,
   },
-
+  emptyTitle: {
+    color: '#172B4D',
+    fontSize: 14,
+    fontWeight: '800',
+    marginTop: 10,
+  },
   emptyText: {
-    color: '#858176',
+    color: '#718096',
+    fontSize: 12,
     textAlign: 'center',
-    fontSize: 13,
+    lineHeight: 18,
+    marginTop: 5,
   },
 });
+

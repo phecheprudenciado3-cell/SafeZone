@@ -4,164 +4,251 @@ import { StyleSheet } from 'react-native';
 export const dashboardStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8F4EC',
+    backgroundColor: '#F5F8FD',
   },
-
-  header: {
-    backgroundColor: '#183D2C',
-    paddingHorizontal: 23,
-    paddingTop: 55,
-    paddingBottom: 35,
-    borderBottomLeftRadius: 27,
-    borderBottomRightRadius: 27,
-  },
-
-  headerTop: {
+  topBar: {
+    height: 62,
+    backgroundColor: '#173B70',
+    paddingHorizontal: 20,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 35,
+    justifyContent: 'space-between',
   },
-
-  brand: {
+  brandRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 9,
+  },
+  brandName: {
+    color: '#FFFFFF',
+    fontSize: 20,
+    fontWeight: '800',
+  },
+  scroll: {
+    flex: 1,
+  },
+  content: {
+    padding: 19,
+    paddingBottom: 25,
+  },
+  welcomeRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 22,
+  },
+  eyebrow: {
+    color: '#718096',
+    fontSize: 10,
+    fontWeight: '800',
+    letterSpacing: 1.1,
+    marginBottom: 6,
+  },
+  greeting: {
+    color: '#172B4D',
     fontSize: 25,
     fontWeight: '800',
-    color: '#FFFFFF',
   },
-
-  headerSubtitle: {
-    fontSize: 11,
-    color: '#D5DFD4',
-    marginTop: 4,
+  subGreeting: {
+    color: '#718096',
+    fontSize: 12,
+    marginTop: 5,
   },
-
-  profileCircle: {
-    width: 47,
-    height: 47,
-    borderRadius: 24,
-    backgroundColor: '#E8D7B7',
+  avatar: {
+    width: 45,
+    height: 45,
+    borderRadius: 23,
+    backgroundColor: '#DCE9FA',
     alignItems: 'center',
     justifyContent: 'center',
   },
-
-  profileInitial: {
-    fontSize: 20,
-    color: '#183D2C',
-    fontWeight: 'bold',
-  },
-
-  greeting: {
-    fontSize: 26,
+  avatarText: {
+    color: '#245FA6',
+    fontSize: 19,
     fontWeight: '800',
+  },
+  banner: {
+    backgroundColor: '#17477F',
+    borderRadius: 16,
+    padding: 17,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 13,
+    marginBottom: 25,
+  },
+  bannerIcon: {
+    width: 49,
+    height: 49,
+    borderRadius: 14,
+    backgroundColor: '#35659A',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  bannerTitle: {
     color: '#FFFFFF',
+    fontSize: 15,
+    fontWeight: '800',
   },
-
-  welcomeText: {
-    fontSize: 14,
-    color: '#D5DFD4',
-    marginTop: 6,
+  bannerDescription: {
+    color: '#DCE8F7',
+    fontSize: 11,
+    lineHeight: 17,
+    marginTop: 5,
   },
-
-  content: {
-    padding: 20,
-    paddingBottom: 35,
-  },
-
   sectionHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginBottom: 13,
     marginTop: 5,
   },
-
   sectionTitle: {
-    fontSize: 19,
+    color: '#172B4D',
+    fontSize: 17,
     fontWeight: '800',
-    color: '#183D2C',
-    marginTop: 23,
-    marginBottom: 14,
   },
-
-  refreshText: {
-    color: '#A77B2D',
+  viewAll: {
+    color: '#245FA6',
+    fontSize: 12,
     fontWeight: '700',
-    fontSize: 13,
   },
-
-  featureGrid: {
+  serviceGrid: {
+    gap: 10,
+    marginBottom: 25,
+  },
+  serviceCard: {
+    backgroundColor: '#FFFFFF',
+    minHeight: 68,
+    borderRadius: 13,
+    borderWidth: 1,
+    borderColor: '#E5EAF2',
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 12,
+    gap: 12,
   },
-
-  featureCard: {
-    width: '48%',
-    minHeight: 145,
-    backgroundColor: '#FFFCF6',
-    padding: 15,
+  serviceIcon: {
+    width: 43,
+    height: 43,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  serviceTitle: {
+    flex: 1,
+    color: '#344563',
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  pageTitle: {
+    fontSize: 24,
+    color: '#172B4D',
+    fontWeight: '800',
+    marginTop: 5,
+  },
+  pageDescription: {
+    fontSize: 13,
+    lineHeight: 20,
+    color: '#718096',
+    marginTop: 7,
+    marginBottom: 21,
+  },
+  profileCard: {
+    backgroundColor: '#FFFFFF',
     borderRadius: 17,
     borderWidth: 1,
-    borderColor: '#EAE2D4',
-    marginBottom: 13,
-    elevation: 2,
-  },
-
-  featureIcon: {
-    fontSize: 27,
-    marginBottom: 13,
-  },
-
-  featureTitle: {
-    fontSize: 14,
-    fontWeight: '800',
-    color: '#183D2C',
-    marginBottom: 6,
-  },
-
-  featureDescription: {
-    fontSize: 11,
-    lineHeight: 17,
-    color: '#858176',
-  },
-
-  infoCard: {
-    backgroundColor: '#EAE6D9',
-    borderRadius: 16,
-    padding: 17,
-    marginTop: 10,
-  },
-
-  infoTitle: {
-    fontSize: 15,
-    fontWeight: '800',
-    color: '#183D2C',
-    marginBottom: 7,
-  },
-
-  infoText: {
-    fontSize: 12,
-    lineHeight: 19,
-    color: '#666459',
-  },
-
-  logoutButton: {
-    backgroundColor: '#183D2C',
-    padding: 15,
-    borderRadius: 13,
+    borderColor: '#E5EAF2',
     alignItems: 'center',
-    marginTop: 20,
+    padding: 24,
+    marginTop: 15,
+    marginBottom: 15,
   },
-
-  logoutText: {
-    color: '#FFFFFF',
-    fontSize: 14,
+  largeAvatar: {
+    width: 75,
+    height: 75,
+    borderRadius: 38,
+    backgroundColor: '#DCE9FA',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 13,
+  },
+  largeAvatarText: {
+    color: '#245FA6',
+    fontSize: 29,
+    fontWeight: '800',
+  },
+  profileName: {
+    color: '#172B4D',
+    fontSize: 18,
+    fontWeight: '800',
+  },
+  profileEmail: {
+    color: '#718096',
+    fontSize: 12,
+    marginTop: 5,
+  },
+  roleBadge: {
+    backgroundColor: '#EAF1FF',
+    borderRadius: 20,
+    paddingHorizontal: 13,
+    paddingVertical: 7,
+    marginTop: 12,
+  },
+  roleText: {
+    color: '#245FA6',
+    fontSize: 11,
     fontWeight: '700',
   },
-
+  profileMenu: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: '#E5EAF2',
+    paddingHorizontal: 15,
+  },
+  menuItem: {
+    minHeight: 55,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#EDF0F5',
+  },
+  menuText: {
+    flex: 1,
+    color: '#344563',
+    fontSize: 13,
+    fontWeight: '600',
+  },
+  bottomBar: {
+    height: 68,
+    backgroundColor: '#FFFFFF',
+    borderTopWidth: 1,
+    borderTopColor: '#E5EAF2',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  tab: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 3,
+  },
+  tabLabel: {
+    color: '#8995A5',
+    fontSize: 10,
+    fontWeight: '600',
+  },
+  activeTabLabel: {
+    color: '#245FA6',
+    fontWeight: '800',
+  },
   footer: {
-    color: '#999386',
-    fontSize: 11,
+    color: '#98A2B3',
+    fontSize: 10,
     textAlign: 'center',
-    marginTop: 20,
+    marginTop: 25,
   },
 });
+
